@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const auth = require('../controllers/authController')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'oficina' });
-});
+router.get('/', auth.index);
+router.post('/', auth.login);
 
 module.exports = router;
