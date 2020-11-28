@@ -1,9 +1,9 @@
-const user = [{
+const users = [{
         usuario: "gideon",
         senha: '123'
     },
     {
-        usuario: "Ale",
+        usuario: "ale",
         senha: '321'
     },
 ]
@@ -18,20 +18,20 @@ const auth = {
 
         const { usuario, senha } = req.body
 
-        user.forEach(u => {
-            if (u.usuario != 'ale') {
-                return res.send({ msg: 'Usuário po senha invalido' })
+        const authUser = users.filter(user => {
+            if (user.usuario == usuario && user.senha == senha) {
+                return true
+            } else {
+                return false
             }
-            if (u.senha != senha) {
-                return res.send({ msg: 'Usuário po senha invalido' })
-            }
-            const usuario = {
-                nome: u.usuario
-            }
-            return res.render('pages/home', usuario)
+
         })
 
-
+        if (authUser.length > 0) {
+            return res.render('pages/home', { usuario: authUser[0].usuario })
+        } else {
+            return res.send({ msg: "Usuário ou Senha Invalido" })
+        }
     }
 }
 
